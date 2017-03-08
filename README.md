@@ -6,6 +6,6 @@ This project intends to parallelize fingerprint recognition using OpenCL and Ope
 </br>
 </br>
 </br>
-###University Of Florida, Spring 2017
+###@ University Of Florida, Spring 2017
 
 
