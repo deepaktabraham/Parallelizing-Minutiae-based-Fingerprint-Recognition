@@ -14,5 +14,6 @@ ParApp: ParApp.cpp
 	@mv ParApp built/
 
 clean:
-	rm -rf built/
-
+	@echo "Removing executables..."
+	@rm -rf built/
+	@echo "Done!"
