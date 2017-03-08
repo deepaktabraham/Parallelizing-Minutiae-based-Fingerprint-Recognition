@@ -2,6 +2,7 @@
 
 Authors:
 Deepak Abraham Tom
+</br>
 Amardeepsingh Siglani
 
 This project intends to parallelize fingerprint recognition using OpenCL and OpenCV
