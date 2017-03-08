@@ -1,6 +1,6 @@
 #Parallelizing-Minutiae-based-Fingerprint-Recognition
 
-Authors </br>:
+Authors: </br>
 Deepak Abraham Tom </br>
 Amardeepsingh Siglani
 
