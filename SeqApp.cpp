@@ -9,7 +9,6 @@ using namespace std;
 using namespace cv;
 int main()
 {
-	int i, j;
 	Mat img, img_db;
 	
 	// read fingerprint image
@@ -30,14 +29,15 @@ int main()
 	Sobel(img_db, Gy, CV_64F, 0, 1, 3);
 	
 	// determine pixel orientation, adjust it to [0, 180] degree range
-	Vx = 2*Gx.mul(Gy);
+	Vx = 2 * Gx.mul(Gy);
 	Vy = Gx.mul(Gx) - Gy.mul(Gy);
+	
 	for(int i = 0; i < Gx.rows; i++)
-		for(int j= 0; j< Gx.cols; j++)
-		{
-			orientation.at<double>(i,j) = 90 + atan2(Vx.at<double>(i,j),Vy.at<double>(i,j)) * 0.5 * 180/PI ;
-		}
+		for(int j = 0; j < Gx.cols; j++)
+			orientation.at<double>(i, j) = 90 + atan2(Vx.at<double>(i, j),Vy.at<double>(i, j)) * 0.5 * 180 / PI ;
 
+
+	cout<<orientation.at<double>(100, 100)<<"\n"; 
 #if 0
 	// write:
 FileStorage fs("myfile.txt",FileStorage::WRITE);
@@ -50,7 +50,7 @@ fs["mat1"] >> m;
 
 
 
-	imshow("fingerprint",img);
+	imshow("fingerprint", img);
 	waitKey(0);
 	
 
