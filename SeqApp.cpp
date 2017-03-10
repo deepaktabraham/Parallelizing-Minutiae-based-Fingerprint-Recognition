@@ -33,7 +33,7 @@ int main()
 {
 	Mat img, img_blur, img_hist, img_mat, img_thresh, img_thin;
 	Mat orientation, new_orientation;
-	//vector<Mat> img_blk;
+	vector<Mat> img_blk;
 	//Scalar mean, stddev;
 	
 	// read fingerprint image
@@ -52,20 +52,20 @@ int main()
 	}
 
 
-
+#if 0
 	// --- should be same??	
 	for(int i = 0; i < BLK_SIZE; i++)
 	{
 		cout<<"\n";
-		for(int j = 0; j < BLK_SIZE; i++)
+		for(int j = 0; j < BLK_SIZE; j++)
 			cout<<img.at<int>(i, j)<<" ";
 	}
 	cout<<"\n"<<img_blk[0]<<"\n";
 	// ---
+#endif
 
 
-
-	#if 0		
+#if 0		
 	for(int i = 0; i < img_blk.size(); i++)
 	{
 		meanStdDev(img_blk[i], mean, stddev, Mat());
@@ -75,16 +75,15 @@ int main()
 			// something goes in here
 		}
 	}
-	#endif	
-	
-#endif
+#endif	
+#endif	
 
 	
 	// perform gaussian blurring of the image
 	GaussianBlur(img, img_blur, Size(3, 3), 0, 0);
 	
 
-	// perform histogram equalization of the blurred image
+	// perform histogram equalization of the blurred image -- reqd??
 	equalizeHist(img_blur, img_hist);
 
 
@@ -99,18 +98,21 @@ int main()
 	// convert original image to a double precision matrix
 	img.convertTo(img_mat, CV_64FC1);
 	
-	
 	// compute orientation of the pixels	
 	orientation = compute_orientation(img_mat);
 
+
+#if 0	
+	//TODO read/write orientations to/from file
 	// write:
-	FileStorage fs("f0001_01.xml", FileStorage::WRITE);
-	fs << "f0001_01" << orientation;
+	FileStorage fs1("f0001_01.xml", FileStorage::WRITE);
+	fs1 << "f0001_01" << orientation;
 
 	// read:
-	FileStorage fs("f0001_01.xml", FileStorage::READ);
-	fs["f0001_01"] >> new_orientation;
-	
+	FileStorage fs2("f0001_01.xml", FileStorage::READ);
+	fs2["f0001_01"] >> new_orientation;
+#endif	
+
 
 	imshow("fingerprint", img_thin);
 	waitKey(0);
