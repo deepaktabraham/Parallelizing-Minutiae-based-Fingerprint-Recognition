@@ -38,5 +38,6 @@ Mat compute_orientation(const Mat matrix)
                         orientation.at<double>(i, j) = 90 + atan2(Vx.at<double>(i, j),\
                                         Vy.at<double>(i, j)) * 0.5 * 180 / PI ;
 
+
         return orientation;
 }
