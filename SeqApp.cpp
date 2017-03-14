@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cmath>
-#include <cstdint>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -100,7 +99,7 @@ int main()
 	
 
 
-	//imshow("mask ready!", close_result);
+	imshow("mask ready!", close_result);
 	//TODO normalize the image - using close_result and 255 ; thus get img_norm
 
 
