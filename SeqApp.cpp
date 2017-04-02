@@ -20,6 +20,12 @@ void thinning(const Mat& src, Mat& dst);
 
 
 /*
+ * function to normalize an image matrix
+ */
+Mat normalize(const Mat& img);
+
+
+/*
  * function to compute orientation of the pixels
  */
 Mat compute_orientation(const Mat matrix);
@@ -38,13 +44,26 @@ int main()
 		
 
 	// read fingerprint image
-	img_src = imread("../f0001_01.png", CV_LOAD_IMAGE_GRAYSCALE);
+	img_src = imread("../101_2.tif", CV_LOAD_IMAGE_GRAYSCALE);
 
 
-	// convert original image to a double precision matrix
-	img_src.convertTo(img_mat, CV_64FC1);
+	// perform blurring of the image using a median filter
+	medianBlur(img_src, img_blur, 3);
 
-	
+
+	// convert the blurred image to a double precision matrix
+	img_blur.convertTo(img_mat, CV_64FC1);
+
+
+	// normalize the image matrix
+	img_norm = normalize(img_mat);
+
+	imshow("asd", img_norm);
+
+
+
+
+#if 0	
 	// add padding to the matrix
 	Mat img_pad(img_mat.rows + SIZE - 1, img_mat.cols + SIZE - 1, CV_64FC1);
 	copyMakeBorder(img_mat, img_pad, (SIZE-1)/2, (SIZE-1)/2, (SIZE-1)/2, (SIZE-1)/2, BORDER_REPLICATE);
@@ -101,7 +120,7 @@ int main()
 
 	imshow("mask ready!", close_result);
 	//TODO normalize the image - using close_result and 255 ; thus get img_norm
-
+#endif
 
 
 #if 0

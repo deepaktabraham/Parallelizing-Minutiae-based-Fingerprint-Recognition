@@ -1,4 +1,4 @@
-API = api/thin.cpp api/orient.cpp
+API = api/thin.cpp api/orient.cpp api/normalizer.cpp
 
 all: SeqApp ParApp
 
