@@ -1,17 +1,27 @@
-API = api/thin.cpp api/orient.cpp api/normalizer.cpp api/ridgeorient.cpp api/ridgefilter.cpp
+API = api/thin.cpp \
+	api/orient.cpp \
+	api/normalizer.cpp \
+	api/ridgeorient.cpp \
+	api/ridgefilter.cpp
+
+INC_DIR = inc
+BUILD_DIR = built
+CFLAGS = -std=c++11
+OPENCV_FLAGS = `pkg-config --cflags opencv`
+OPENCV_LIBS = `pkg-config --libs opencv`
 
 all: SeqApp ParApp
 
 SeqApp: SeqApp.cpp
 	@echo -n "Compiling the Sequential App... "
 	@mkdir -p built
-	@g++ `pkg-config --cflags opencv` -o built/SeqApp SeqApp.cpp $(API) `pkg-config --libs opencv` -std=c++11
+	@g++ $(OPENCV_FLAGS) $(CFLAGS) -I$(INC_DIR) $(API) $< -o$(BUILD_DIR)/$@ $(OPENCV_LIBS)
 	@echo "Done!"
 
 ParApp: ParApp.cpp
 	@echo -n "Compiling the Parallel App... "
 	@mkdir -p built
-	@g++ `pkg-config --cflags opencv` -o built/ParApp ParApp.cpp `pkg-config --libs opencv`
+	@g++ $(OPENCV_FLAGS) $(CFLAGS) -I$(INC_DIR) $< -o$(BUILD_DIR)/$@ $(OPENCV_LIBS)
 	@echo "Done!"
 
 clean:
