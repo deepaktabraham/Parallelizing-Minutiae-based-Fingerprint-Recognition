@@ -11,7 +11,7 @@ using namespace cv;
 /*
  * function to calculate standard deviation of the image matrix
  */
-static double deviation(Mat& img, double avg)
+static double deviation(Mat img, double avg)
 {
 	double sdev = 0.0;
 	double var = 0.0;
@@ -37,7 +37,7 @@ static double deviation(Mat& img, double avg)
 /*
  * function to normalize an image matrix
  */
-Mat normalize(const Mat& img)
+Mat normalize(const Mat img)
 {
 	Scalar avg = mean(img);
 	Mat img_norm = img - avg[0];

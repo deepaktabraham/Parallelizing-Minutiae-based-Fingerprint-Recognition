@@ -12,17 +12,26 @@ using namespace std;
 using namespace cv;
 
 
+/*
+ * function to normalize an image matrix
+ */
+Mat normalize(const Mat img);
+
+
+/*
+ * function to calculate ridge orientation field
+ */
+Mat ridge_orient(const Mat img, double gradient_sigma, double block_sigma, double orient_smooth_sigma);
+
+
+
+Mat ridge_filter(const Mat img, const Mat img_orient, Mat frequency, double kx, double ky);
+
 
 /*
  * function to perform thinning of the binary image
  */
 void thinning(const Mat& src, Mat& dst);
-
-
-/*
- * function to normalize an image matrix
- */
-Mat normalize(const Mat& img);
 
 
 /*
@@ -36,7 +45,7 @@ Mat compute_orientation(const Mat matrix);
  */
 int main()
 {
-	Mat img_src, img_norm, img_blur, img_hist, img_mat, img_thresh, img_thin;
+	Mat img_src, img_blur, img_mat, img_norm, img_orient, img_enhanced, img_thresh, img_thin;
 	Mat orientation, new_orientation;
 	vector<Mat> img_blk;
 	Scalar mean, stddev;
@@ -58,10 +67,17 @@ int main()
 	// normalize the image matrix
 	img_norm = normalize(img_mat);
 
-	imshow("asd", img_norm);
+
+	// calculate ridge orientation field
+	img_orient = ridge_orient(img_norm, 1.0, 5.0, 5.0);
 
 
+        Mat freq = Mat::ones(img_norm.rows, img_norm.cols, img_norm.type());
+        freq *= 0.11;
 
+        // perform ridge filtering to get the final enhanced image
+        img_enhanced = ridge_filter(img_norm, img_orient, freq, 0.4, 0.4);
+	imshow("asd", img_enhanced);
 
 #if 0	
 	// add padding to the matrix
