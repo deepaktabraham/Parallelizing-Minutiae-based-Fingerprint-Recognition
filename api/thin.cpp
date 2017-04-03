@@ -15,7 +15,7 @@ using namespace cv;
 /*
  * function to perform one thinning iteration
  */
-void thinningIteration(Mat& img, int iter)
+static void thinningIteration(Mat& img, int iter)
 {
 	CV_Assert(img.channels() == 1);
 	CV_Assert(img.depth() != sizeof(uchar));

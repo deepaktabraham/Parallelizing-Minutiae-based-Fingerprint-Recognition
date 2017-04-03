@@ -54,6 +54,15 @@ int main()
 	 */
 	thinning(img_thresh, img_thin);
 
+
+	/* Image pre-processing complete */
+
+
+	/*
+	 * 
+	 */
+
+
 #if 0	
 	//TODO read/write orientations to/from file
 	// write:

@@ -14,7 +14,7 @@ using namespace cv;
 /*
  * function to calculate gradient in x and y direction of the image
  */
-void gradient(const Mat image, Mat xGradient, Mat yGradient)
+static void gradient(const Mat image, Mat xGradient, Mat yGradient)
 {
 	xGradient = Mat::zeros(image.rows, image.cols, CV_64FC1);
 	yGradient = Mat::zeros(image.rows, image.cols, CV_64FC1);

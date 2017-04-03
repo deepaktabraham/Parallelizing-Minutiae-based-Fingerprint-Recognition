@@ -21,7 +21,7 @@ static Mat meshX, meshY;
 /*
  * function equivalent to MATLAB's 'meshgrid' function
  */
-void meshgrid(int size)
+static void meshgrid(int size)
 {
 	Range xr = Range(-size, size);
 	Range yr = Range(-size, size);
