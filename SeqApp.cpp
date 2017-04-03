@@ -6,7 +6,7 @@
  */
 int main()
 {
-	Mat img_src, img_blur, img_mat, img_thresh, img_thin;
+	Mat img_src, img_blur, img_mat, img_thresh, img_thin, img_final;
 
 	/*
 	 * read fingerprint image
@@ -30,39 +30,34 @@ int main()
 	Mat orientation = ridge_orient(img_norm, 1.0, 5.0, 5.0);
 	
         // perform ridge filtering to get the final enhanced image
-        Mat img_enhanced = ridge_filter(img_norm, orientation, 0.4, 0.4);
+        Mat img_filtered = ridge_filter(img_norm, orientation, 0.4, 0.4);
 	
-	
-	/*
-	 * generate mask
-	 */
+	// generate mask
 	Mat mask = mask_gen(img_mat);
-	Mat img_final = mask.mul(img_enhanced);
+	Mat img_enhanced = mask.mul(img_filtered);
 
 	// convert image format from double to uchar
-	img_final.convertTo(img_final, CV_8UC1);
+	img_enhanced.convertTo(img_enhanced, CV_8UC1);
 
+	// obtain binary image from the enhanced image
+	threshold(img_enhanced, img_thresh, 100, 255, CV_THRESH_BINARY);
 
-	/*
-	 * obtain binary image from the enhanced image
-	 */
-	threshold(img_final, img_thresh, 100, 255, CV_THRESH_BINARY);
-
-
-	/*
-	 * perform thinning of the binary image
-	 */
+	// perform thinning of the binary image
 	thinning(img_thresh, img_thin);
+	
+	// convert the thinned image to a double precision matrix
+	img_thin.convertTo(img_final, CV_64FC1);
 
-
-	/* Image pre-processing complete */
-
-
+	
 	/*
-	 * 
+	 * identify minutiae points 
 	 */
+	
 
 
+
+
+	
 #if 0	
 	//TODO read/write orientations to/from file
 	// write:
