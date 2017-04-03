@@ -7,8 +7,6 @@
 int main()
 {
 	Mat img_src, img_blur, img_mat, img_thresh, img_thin;
-	Mat orientation, new_orientation;
-		
 
 	/*
 	 * read fingerprint image
@@ -28,11 +26,11 @@ int main()
 	// normalize the image matrix
 	Mat img_norm = normalize(img_mat);
 
-	// calculate ridge orientation field
-	Mat img_orient = ridge_orient(img_norm, 1.0, 5.0, 5.0);
-
+	// calculate ridge orientation
+	Mat orientation = ridge_orient(img_norm, 1.0, 5.0, 5.0);
+	
         // perform ridge filtering to get the final enhanced image
-        Mat img_enhanced = ridge_filter(img_norm, img_orient, 0.4, 0.4);
+        Mat img_enhanced = ridge_filter(img_norm, orientation, 0.4, 0.4);
 	
 	
 	/*
@@ -55,13 +53,6 @@ int main()
 	 * perform thinning of the binary image
 	 */
 	thinning(img_thresh, img_thin);
-
-
-	/*
-	 * compute orientation of the pixels
-	 */
-	orientation = compute_orientation(img_mat);
-
 
 #if 0	
 	//TODO read/write orientations to/from file

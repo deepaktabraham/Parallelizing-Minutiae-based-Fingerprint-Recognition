@@ -1,9 +1,8 @@
-API = api/thin.cpp \
-	api/orient.cpp \
-	api/normalizer.cpp \
-	api/mask.cpp \
+API = 	api/normalizer.cpp \
 	api/ridgeorient.cpp \
-	api/ridgefilter.cpp
+	api/ridgefilter.cpp \
+	api/thin.cpp \
+	api/mask.cpp 
 
 INC_DIR = inc
 BUILD_DIR = built

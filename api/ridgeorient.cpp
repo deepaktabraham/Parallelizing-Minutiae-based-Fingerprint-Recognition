@@ -1,5 +1,5 @@
 /*
- * Code to calculate ridge orientation field
+ * Code to calculate ridge orientation
  */
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -70,7 +70,7 @@ void gradient(const Mat image, Mat xGradient, Mat yGradient)
 
 
 /*
- * function to calculate ridge orientation field
+ * function to calculate ridge orientation
  */
 Mat ridge_orient(Mat im, double gradientsigma, double blocksigma, double orientsmoothsigma)
 {

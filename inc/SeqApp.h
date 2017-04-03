@@ -19,7 +19,7 @@ Mat normalize(const Mat img);
 
 
 /*
- * function to calculate ridge orientation field
+ * function to calculate ridge orientation
  */
 Mat ridge_orient(const Mat img, double gradient_sigma, double block_sigma, double orient_smooth_sigma);
 
