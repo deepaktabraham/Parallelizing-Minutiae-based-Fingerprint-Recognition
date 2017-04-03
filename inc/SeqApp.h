@@ -8,9 +8,6 @@
 #include <opencv2/imgproc/imgproc.hpp>
 
 
-#define SIZE 11	// (SIZE x SIZE) should be odd
-
-
 using namespace std;
 using namespace cv;
 
@@ -31,6 +28,12 @@ Mat ridge_orient(const Mat img, double gradient_sigma, double block_sigma, doubl
  * function to perform ridge filtering
  */
 Mat ridge_filter(const Mat img, const Mat img_orient, double kx, double ky);
+
+
+/* 
+ * function to generate mask
+ */
+Mat mask_gen(const Mat img);
 
 
 /*

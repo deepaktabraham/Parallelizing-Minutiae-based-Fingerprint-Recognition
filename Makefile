@@ -1,6 +1,7 @@
 API = api/thin.cpp \
 	api/orient.cpp \
 	api/normalizer.cpp \
+	api/mask.cpp \
 	api/ridgeorient.cpp \
 	api/ridgefilter.cpp
 
