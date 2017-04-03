@@ -49,9 +49,13 @@ void meshgrid(int size)
 /*
  * function to perform ridge filtering
  */
-Mat ridge_filter(const Mat inputImage, const Mat orientationImage, Mat frequency, double kx, double ky)
+Mat ridge_filter(const Mat inputImage, const Mat orientationImage, double kx, double ky)
 {
 	int angleInc = 3; // fixed angle increment between filter orientations in degrees
+
+	// frequency defined statically as 0.11
+        Mat frequency = Mat::ones(inputImage.rows, inputImage.cols, inputImage.type());
+        frequency *= 0.11;
 
 	int rows = inputImage.rows;
 	int cols = inputImage.cols;

@@ -1,8 +1,6 @@
 #include "SeqApp.h"
 
 
-
-
 /*
  * main function
  */
@@ -35,11 +33,8 @@ int main()
 	img_orient = ridge_orient(img_norm, 1.0, 5.0, 5.0);
 
 
-        Mat freq = Mat::ones(img_norm.rows, img_norm.cols, img_norm.type());
-        freq *= 0.11;
-
         // perform ridge filtering to get the final enhanced image
-        img_enhanced = ridge_filter(img_norm, img_orient, freq, 0.4, 0.4);
+        img_enhanced = ridge_filter(img_norm, img_orient, 0.4, 0.4);
 	imshow("asd", img_enhanced);
 
 #if 0	
