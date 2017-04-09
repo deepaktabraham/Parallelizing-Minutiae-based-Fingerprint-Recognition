@@ -6,8 +6,10 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
+#include <dirent.h>
+#include <sys/stat.h>
 
-
+#define DATABASE "database/"
 using namespace std;
 using namespace cv;
 
