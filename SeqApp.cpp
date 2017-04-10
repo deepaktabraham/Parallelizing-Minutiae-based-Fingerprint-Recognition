@@ -34,7 +34,7 @@ int main()
 	/*
 	 * read fingerprint image
 	 */
-	img_src = imread("../109_3.tif", CV_LOAD_IMAGE_GRAYSCALE);
+	img_src = imread("../101_1.tif", CV_LOAD_IMAGE_GRAYSCALE);
 
 	
 	/*
@@ -180,7 +180,7 @@ int main()
 
 
 
-#if 1	
+#if 0	
 	// write:
 	FileStorage db("database/109_3.xml", FileStorage::WRITE); 	//TODO handle filenames
 	db<<"num_items"<<(int)k;
@@ -199,7 +199,7 @@ int main()
 #endif	
 
 
-#if 0
+#if 1
 	// read:
 	string dir = string(DATABASE);
 	vector<string> files = vector<string>();
@@ -224,6 +224,7 @@ int main()
 
 	
 	vector<vector <struct minutiae_t>> db_data;
+	vector<struct minutiae_t> points;
 	int num_items, id;
 	for (int i = 0; i<files.size(); i++)
 	{
@@ -241,14 +242,14 @@ int main()
 		num_items= 0;
 		db["num_items"] >> num_items;	//TODO everything is read here... why???
 		cout<<"error below!\n";
-		db_data[i].resize((int)num_items);
-
+		db_data.push_back(points);
+		
 		FileNode fn = db["minutiae"];
 		id=0;
 		for (FileNodeIterator it = fn.begin(); it != fn.end(); it++,id++)
 		{
 			FileNode item = *it;
-
+			db_data[i].push_back(minutiae_point);
 			item["type"] >> db_data[i][id].type;
 			item["x"] >> db_data[i][id].x;
 			item["y"] >> db_data[i][id].y;
@@ -265,7 +266,7 @@ int main()
 		cout<<"ERROR!!!\n";
 
 #endif
-	imshow("fingerprint", img_enhanced);
-	waitKey(0);
+	//imshow("fingerprint", img_enhanced);
+	//waitKey(0);
 	return 0;
 }
