@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	Mat img_src, img_blur, img_src_mat, img_thresh, img_enhanced, bin_matrix, d_bin_matrix;
 
 	/*
- 	 * check command-line arguments
+	 * check command-line arguments
 	 */
 	if(argc != 2)
 	{
@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 	 */
 	img_src = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
 
-	
+
 	/*
 	 * perform image enhancement
 	 */
@@ -38,10 +38,10 @@ int main(int argc, char* argv[])
 
 	// calculate ridge orientation
 	Mat orientation = ridge_orient(img_norm, 1.0, 5.0, 5.0);
-	
-        // perform ridge filtering to get the final enhanced image
-        Mat img_filtered = ridge_filter(img_norm, orientation, 0.4, 0.4);
-	
+
+	// perform ridge filtering to get the final enhanced image
+	Mat img_filtered = ridge_filter(img_norm, orientation, 0.4, 0.4);
+
 	// generate mask
 	Mat mask = mask_gen(img_src_mat);
 
@@ -56,18 +56,18 @@ int main(int argc, char* argv[])
 
 	// perform thinning of the binary image
 	thinning(img_thresh, img_enhanced);
-	
+
 	// convert to a binary matrix
 	threshold(img_enhanced, bin_matrix, 254, 1, THRESH_BINARY);
-	
+
 	// convert the binary matrix to a double precision
 	bin_matrix.convertTo(d_bin_matrix, CV_64FC1);
 
 
 	/*
-         * identify and classify the minutiae points
-         */
-        vector<struct minutiae_t> minutiae = minutiae_classify(d_bin_matrix, orientation);
+	 * identify and classify the minutiae points
+	 */
+	vector<struct minutiae_t> minutiae = minutiae_classify(d_bin_matrix, orientation);
 
 
 	/* 
@@ -75,12 +75,15 @@ int main(int argc, char* argv[])
 	 */
 	vector<string> files = vector<string>();
 	ostringstream filepath;
+
+	// get list of files in the XML database
 	if(get_files(string(DATABASE), &files) != 0)
 	{
 		// exit due to error
 		return -1;
 	}	
 
+	// check if XML database is empty
 	if(files.size() == 0)
 	{
 		cout<<"ERROR: XML Database is empty... run InitDatabase\n";
@@ -93,7 +96,9 @@ int main(int argc, char* argv[])
 	int num_items, id;
 	for (int i = 0; i<files.size(); i++)
 	{
-		// read files in the database
+		id=0;
+
+		// read file from the XML database
 		filepath.clear();
 		filepath.str("");
 		filepath<<DATABASE<<files[i];
@@ -101,15 +106,15 @@ int main(int argc, char* argv[])
 
 		if(!db.isOpened())
 		{
-			cout<<"ERROR: failed to open files in the database\n";
+			cout<<"ERROR: failed to open file in the XML database\n";
 			return -1;
 		}
 
 		db["num_items"] >> num_items;
 		db_data.push_back(db_minutiae_set);
-		
+
 		FileNode fn = db["minutiae"];
-		id=0;
+
 		for (FileNodeIterator it = fn.begin(); it != fn.end(); it++,id++)
 		{
 			FileNode item = *it;
@@ -122,7 +127,7 @@ int main(int argc, char* argv[])
 		db.release();
 
 
-		// compare minutiae points obtained for the given image with values read from database
+		// compare minutiae points obtained for the given image with values read from the XML database
 		if(db_data[i] == minutiae)
 		{
 			cout<<"Matching with "<<files[i].substr(0, files[i].length() - 4)<<" !!!\n";
