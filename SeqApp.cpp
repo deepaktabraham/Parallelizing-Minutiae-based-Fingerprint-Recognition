@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 	if(argc != 2)
 	{
 		cout<<"ERROR: invalid arguments\n";
+		cout<<"Usage: ./built/SeqApp <fingerprint_image>\n";
 		return -1;
 	}
 
@@ -74,8 +75,7 @@ int main(int argc, char* argv[])
 	 * read and compare with minutiae details in the database
 	 */
 	vector<string> files = vector<string>();
-	ostringstream filepath;
-
+	
 	// get list of files in the XML database
 	if(get_files(string(DATABASE), &files) != 0)
 	{
@@ -93,16 +93,17 @@ int main(int argc, char* argv[])
 	vector<vector <struct minutiae_t>> db_data;
 	vector<struct minutiae_t> db_minutiae_set;
 	struct minutiae_t db_minutiae_point;
+	ostringstream file_path;
 	int num_items, id;
 	for (int i = 0; i<files.size(); i++)
 	{
 		id=0;
 
 		// read file from the XML database
-		filepath.clear();
-		filepath.str("");
-		filepath<<DATABASE<<files[i];
-		FileStorage db(filepath.str(), FileStorage::READ);
+		file_path.clear();
+		file_path.str("");
+		file_path<<DATABASE<<files[i];
+		FileStorage db(file_path.str(), FileStorage::READ);
 
 		if(!db.isOpened())
 		{

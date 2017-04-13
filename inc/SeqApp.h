@@ -10,7 +10,7 @@
 
 
 #define DATABASE "xml_database/"
-
+#define XML "xml"
 
 using namespace std;
 using namespace cv;

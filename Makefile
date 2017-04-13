@@ -13,7 +13,13 @@ CFLAGS = -std=c++11
 OPENCV_FLAGS = `pkg-config --cflags opencv`
 OPENCV_LIBS = `pkg-config --libs opencv`
 
-all: SeqApp ParApp
+all: InitDatabase SeqApp ParApp
+
+InitDatabase: InitDatabase.cpp
+	@echo -n "Compiling InitDatabase App... "
+	@mkdir -p built
+	@g++ $(OPENCV_FLAGS) $(CFLAGS) -I$(INC_DIR) $(COMMON_API) $(SEQ_API) $< -o$(BUILD_DIR)/$@ $(OPENCV_LIBS)
+	@echo "Done!"
 
 SeqApp: SeqApp.cpp
 	@echo -n "Compiling the Sequential App... "
