@@ -1,17 +1,31 @@
 #ifndef H_SEQ_APP
 #define H_SEQ_APP
 
+
 #include <iostream>
 #include <cmath>
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <dirent.h>
-#include <sys/stat.h>
 
-#define DATABASE "database/"
+
+#define DATABASE "xml_database/"
+
+
 using namespace std;
 using namespace cv;
+
+
+/*
+ * structure for minutiae points
+ */
+struct minutiae_t
+{
+        int type;       // 1 - ridge ending
+                        // 2 - bifurcation
+        int x, y;	// position
+        double theta;	// orientation
+};
 
 
 /*
@@ -49,4 +63,21 @@ void thinning(const Mat& src, Mat& dst);
  */
 Mat compute_orientation(const Mat matrix);
 
+
+/*
+ * function to obtain a vector of files in the given directory
+ */
+int get_files(string dir, vector<string>* files);
+
+
+/*
+ * operator overloading for struct minutiae_t comparison
+ */
+bool operator==(const vector<struct minutiae_t> & lhs, const vector<struct minutiae_t> & rhs);
+
+
+/*
+ * function to identify and classify minutiae points
+ */
+vector<struct minutiae_t> minutiae_classify(const Mat d_bin_matrix, const Mat orientation);
 #endif
